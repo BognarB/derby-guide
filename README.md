@@ -6,8 +6,9 @@ derby-guide
 A guide to getting going with Derby.js from scratch. If you are interested in derby.js and want to learn how it works read on.
 
 Note: 
-1. This guide is written for a mac but it shouldn't be too hard for Windows and *nix users to tranlate on the fly. (If you are up for it you could even fork the guide, update it for your OS as you go and send us a pull request.)
-2. You may need to use sudo for some of the commands below. (Again would be great if someone could run though the and updare the guide with where they have needed sudo.)
+
+  1. This guide is written for a mac but it shouldn't be too hard for Windows and *nix users to tranlate on the fly. (If you are up for it you could even fork the guide, update it for your OS as you go and send us a pull request.)
+  1. You may need to use sudo for some of the commands below. (Again would be great if someone could run though the and updare the guide with where they have needed sudo.)
 
 
 Part 1 - Setup Your Machine
