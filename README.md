@@ -132,11 +132,11 @@ Derby is built on a number of techniques and libraries. They key ones are:
 Also worthy of metion are the Stylus, LESS, UglifyJS, Redis and MongoDB librbaries.
 
 
-### A Poke Arround in the Code
+### A Look Around in the Code
 
 
 
-### A Poke Arround in the Databases
+### A Look Around in the Databases
 You can safely skip this section but if you are inquisitive you might want to see inside the databases. As you have probably realised there are two - redis and mogodb.
 
 
@@ -149,23 +149,18 @@ mongo
 Find out the database name with:
 ```
 show dbs
-```
-Mongo will respond with something like:
-```
+
+# Returns:
 derby-chat  0.203125GB
 ```
 
-In this case there is only one database, so select it with `use <name>` where `<n>` is the database name.
+In this case there is only one database, so select it with `use <name>` where `<n>` is the database name. Then list all the collections in the database:
+
 ```
 use derby-chat
-```
-
-To list all the collections derby has created in your mongo database use:
-```
 show collections
-```
-Mongo will respond with something like:
-```
+
+# Returns:
 chat
 messages
 sessions
@@ -173,12 +168,11 @@ system.indexes
 users
 ```
 
-To see the data in one of these collection use `db.<collection>.find()`, for example:
+To see the documents in one of these collection use `db.<collection>.find()`, for example:
 ```
 db.messages.find()`
-```
-Mongo will return each document in the collection. For example:
-```
+
+# Returns:
 { "room" : "lobby", "userId" : "7cab5aaa-b5b1-4f58-b233-f244777a816f", "comment" : "hello world!", "time" : 1374308274283, "id" : "d4bb0848-af17-4562-9266-f77ebe419154", "_type" : "http://sharejs.org/types/JSONv0", "_v" : 1, "_id" : "d4bb0848-af17-4562-9266-f77ebe419154" }
 ```
 
@@ -189,8 +183,7 @@ And finally...
 exit
 ```
 
-##### Just In Case...
-... you ever want to clear down your database to a blank one you can use the mongo command `db.dropDatabase()`. BUT use with care and make sure you have the right database selected first!
+Note: In case you ever want to clear down your database to a blank one you can use the mongo command `db.dropDatabase()`. BUT use with care and make sure you have the right database selected first!
 
 #### Redis
 Start the redis client with:
@@ -201,20 +194,16 @@ redis-cli
 Find out the database id with:
 ```
 INFO KEYSPACE
-```
-Redis will respond with something like:
-```
+
+# Returns:
 # Keyspace
 db1:keys=13,expires=8
 ```
 
-In this case there is only one database, so select it with `SELECT <n>` where `<n>` is the db number.
+In this case there is only one database, so select it with `SELECT <n>` where `<n>` is the db number. Then list all the keys with:
+
 ```
 SELECT 1 
-```
-
-To list all the keys derby has created in your redis database use:
-```
 KEYS *
 ```
 
@@ -223,8 +212,7 @@ And finally...
 EXIT
 ```
 
-##### Just In Case...
-... you ever want to clear down your database to a blank one you can use the redis command `FLUSHDB`. BUT use with care and make sure you have the right database selected first!
+Note: In case you ever want to clear down your database to a blank one you can use the redis command `FLUSHDB`. BUT use with care and make sure you have the right database selected first!
 
 
 ### Godbox
