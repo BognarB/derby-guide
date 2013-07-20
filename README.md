@@ -5,10 +5,26 @@ derby-guide
 
 A guide to getting going with Derby.js from scratch. If you are interested in derby.js and want to learn how it works read on.
 
-Note: 
+Notes: 
 
   1. This guide is written for a mac but it shouldn't be too hard for Windows and *nix users to tranlate on the fly. (If you are up for it you could even fork the guide, update it for your OS as you go and send us a pull request.)
   1. You may need to use sudo for some of the commands below. (Again would be great if someone could run though the and updare the guide with where they have needed sudo.)
+
+The Basics
+==========
+
+### Why use Derby?
+To build fast, realtime, colaborative, web applications like google docs.
+
+### What is Derby?
+
+* A web application programming framework for node.js
+* A command line tool which can be used to create a starter Derby project.
+* A node.js module that is included in a Derby project.
+
+### How to use Derby?
+
+Read on…
 
 
 Part 1 - Setup Your Machine
@@ -82,56 +98,145 @@ cd derby-examples/chat
 coffee server.coffee  
 ```
 
+You will see somthing like:
+```
+Master pid  33960
+33963 listening. Go to: http://localhost:3000/
+``` 
+
+So go to [http://localhost:3000/](http://localhost:3000/) and take a look. It's a basic but functional chat room; you can change your name and send messages. If you connect to this URL from two different browsers (or one normal window and one private / ignognito window) you and see how it works with two users. Notice when one user sends a message it autmatically apears in the seond user's window. Near real time updates like this in web apps, without refreshing the page manualy, are often taken for granted but they need some extra care to get right - which is what Derby does for you.
+
+
+### So how does Derby work?
+
+Here's a short description on how it works. A longer explanation and guide to building your own app is below but it's good to understand these basics first.
+
+When you run a Derby app (e.g. with the `coffee server.coffee` command you ran above) you get:
+
+1. A Derby Server - running in node.js, and able to serve a ...
+2. A Derby Client - that runs in a web browser and connects back to the Server to ensure ...
+3. Synchonised Data - accross all connected clients and ...
+4. Persisisted Data - in the server side database.
+
+
+Derby achives this by combining a number of techniques and librbaries. They key ones are:
+
+1. 
+2. 
+3. 
+
+
+### A Poke Arround in the Code
 
 
 
-Step 5 - clone godbox and start it up
+### A Poke Arround in the Databases
+You can safely skip this section but if you are inquisitve you might want to see inside the databases. As you have probably reliased there are two - redis and mogodb.
 
-git clone 
-cd derby-examples/chat 
-coffee server.coffee  
 
-Use redis-cli
+#### Mongodb
+Start the mongodb client with:
+```bash
+mongo
+```
 
-> INFO keyspace
+Find out the database name with:
+```
+show dbs
+```
+Mongo will respond with something like:
+```
+derby-chat  0.203125GB
+```
+
+In this case there is only one databse, so select it with `use <name>` where `<n>` is the database name.
+```
+use derby-chat
+```
+
+To list all the collections derby has created in your mongo database use:
+```
+show collections
+```
+Mongo will respond with something like:
+```
+chat
+messages
+sessions
+system.indexes
+users
+```
+
+To see the data in one of these collection use `db.<collection>.find()`, for example:
+```
+db.messages.find()`
+```
+Mongo will return each document in the collection. For example:
+```
+{ "room" : "lobby", "userId" : "7cab5aaa-b5b1-4f58-b233-f244777a816f", "comment" : "hello world!", "time" : 1374308274283, "id" : "d4bb0848-af17-4562-9266-f77ebe419154", "_type" : "http://sharejs.org/types/JSONv0", "_v" : 1, "_id" : "d4bb0848-af17-4562-9266-f77ebe419154" }
+```
+
+This shows some of the internals of how derby's databse engine, livedb, is storing data in mongo. You should also recogonise 
+
+And finally...
+```
+exit
+```
+
+##### Just In Case...
+... you ever want to clear down your database to a blank one you can use the mongo command `db.dropDatabase()`. BUT use with care and make sure you have the right database selected first!
+
+#### Redis
+Start the redis client with:
+```bash
+redis-cli
+```
+
+Find out the database id with:
+```
+INFO KEYSPACE
+```
+Redis will respond with something like:
+```
 # Keyspace
-db1:keys=15,expires=8
-db5:keys=17,expires=6
-db11:keys=11,expires=4
+db1:keys=13,expires=8
+```
 
-tells you you have three redid databases numbered 1, 5 and 11 accordingly
+In this case there is only one databse, so select it with `SELECT <n>` where `<n>` is the db number.
+```
+SELECT 1 
+```
 
-> SELECT 1 
+To list all the keys derby has created in your redis database use:
+```
+KEYS *
+```
 
-selects redis db1
+And finally...
+```
+EXIT
+```
 
-> keys *
+##### Just In Case...
+... you ever want to clear down your database to a blank one you can use the redis command `FLUSHDB`. BUT use with care and make sure you have the right database selected first!
 
-lists all the keys
 
-## Introduction
+### Godbox
+All this looking arround inside the databses is a bit low level. Godbox provides a broswer interface to the Derby database. To get started with godbox clone it from github. Before you start it you will need to know the redis db number and the mongo database name / collection to point it at.
 
-### Why use Derby?
+You can find these things by poking arround in the databse (see above) or poking arround in the code. 
 
-* To build fast, "live", wen applications like google docs.
 
-### What is Derby?
 
-* A web application programming framework for node.js
-* A command line tool which can be used to create a starter Derby project.
-* A node.js module, and there are a collection of related modules, that are included in a Derby project.
+```bash
+git clone git@github.com:share/godbox.git
+cd godbox
+coffee server.coffee  
+```
 
-### How to use Derby?
 
-Read on…
+How To Build A Derby App
+========================
 
-## Getting Started
-
-### 
-
-1. A Derby Server - which runs on node.js and serves ...
-2. A Derby Client - a web application which runs in the browser and ...
-3. Clients are kept in live sync with the Server and ...
-4. The Server stores all data in a database.
-
+Todo
 
