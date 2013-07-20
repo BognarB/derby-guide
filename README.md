@@ -30,11 +30,11 @@ Read on…
 Part 1 - Setup Your Machine
 ===========================
 
-First of all you are going to need to set up your machine. 
+First of all you are going to need to install a few tools.
 
 ### Homebrew
 
-Homebrew is a great way to install development software on a Mac. Read more [here](http://mxcl.github.io/homebrew/) Download and install homebrew with:
+Homebrew is a great way to install software on a Mac and we will use it to install some of the software needed by Derby. Read more about homebrew [here](http://mxcl.github.io/homebrew/) and download and install homebrew with:
 
 ```bash
 ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
@@ -43,7 +43,9 @@ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 
 ### node.js, npm, redis, mongodb.
 
-Derby is built on node.js. npm is the node package manager (but don't tell anyone that is what it [stands for][https://npmjs.org/doc/faq.html#If-npm-is-an-acronym-why-is-it-never-capitalized]. Derby uses a combination of database awsomeness from redis and mongodb (to create the "livedb" which you will find out more about later on).
+Derby is built on node.js. npm is the node package manager (but don't tell anyone that is what it [stands for](https://npmjs.org/doc/faq.html#If-npm-is-an-acronym-why-is-it-never-capitalized). By default Derby uses a combination of database awsomeness from redis and mongodb.
+
+Install all three with:
 
 ```bash
 brew install nodejs
@@ -53,13 +55,15 @@ brew install mongo
 
 ### Git
 
-[Git](http://git-scm.com/) is the fast, effience and clever version control system. If you havn't installed it already do so now - you will use it to "clone" Derby examples from [github](https://github.com/). If you havn't discovered github yet you've been missing out! A huge number of open source projects manage their source code on github, including many node.js projects ike Derby and it's related libraries (more on those later).
+[Git](http://git-scm.com/) is the fast, effience and clever version control system and you will use it to "clone" Derby examples from [github](https://github.com/). If you havn't discovered github yet you've been missing out! A huge number of open source projects manage their source code on github, including many node.js projects ike Derby and it's related libraries (more on those later).
 
-Download and install from [git-scm.com/downloads](http://git-scm.com/downloads).
+Download and install git from [git-scm.com/downloads](http://git-scm.com/downloads).
+
+Set your self up with a github account by following these instuctions [here](https://help.github.com/articles/set-up-git).
 
 ### Coffee
 
-Coffee script compiples into javascript. Derby uses coffeescript internally, as do many of the Derby examples so install it now (and you might find learning tohe cofeescript syntax worth it too, see [coffeescript.org](http://coffeescript.org/)).
+Coffee script compiles into javascript. Derby uses coffeescript internally, as do many of the Derby examples so install it now (and you might find learning the cofeescript syntax a useful investment too, see [coffeescript.org](http://coffeescript.org/)).
 
 ```bash
 npm install -g coffee
@@ -75,10 +79,8 @@ npm install -g derbyjs
 Part 2 - Run an Example
 =======================
 
-### Start mongo and redid
-You can use a separate terminal for each if you like.
-
-In one run the redis server:
+### Start mongo and redis
+You can use a separate terminal for each if you like. In one run the redis server:
 ```bash
 redis-server
 ```
@@ -88,10 +90,10 @@ In the other run the mongo server:
 mongod
 ```
 
-They will both run on default ports and output status / debug information to the terminal.
+They will both run on default ports and log information to the terminal.
 
-### Clone and Run!
-Clone the examples from github and run one (in this case chat):
+### Start an Example
+Clone the examples from github and run one, in this case chat:
 ```bash
 git clone 
 cd derby-examples/chat 
@@ -104,19 +106,17 @@ Master pid  33960
 33963 listening. Go to: http://localhost:3000/
 ``` 
 
-So go to [http://localhost:3000/](http://localhost:3000/) and take a look. It's a basic but functional chat room; you can change your name and send messages. If you connect to this URL from two different browsers (or one normal window and one private / ignognito window) you and see how it works with two users. Notice when one user sends a message it autmatically apears in the seond user's window. Near real time updates like this in web apps, without refreshing the page manualy, are often taken for granted but they need some extra care to get right - which is what Derby does for you.
+So go to [http://localhost:3000/](http://localhost:3000/) and take a look. It's a basic but functional chat room where you can change your name and send messages. If you connect to this URL from two different browsers (or one normal window and one private / ignognito window) you and see how it works with two users. Notice when one user sends a message it autmatically apears in the seond user's window. Near real time updates like this in web apps, without refreshing the page manualy, are often taken for granted but they need some extra care to get right - which is what Derby does for you.
 
 
 ### So how does Derby work?
 
-Here's a short description on how it works. A longer explanation and guide to building your own app is below but it's good to understand these basics first.
+Here's a short description. A longer explanation and guide to building your own app is below but it's good to understand the basics first. When you run a Derby app (e.g. with the `coffee server.coffee` command you ran above) you get:
 
-When you run a Derby app (e.g. with the `coffee server.coffee` command you ran above) you get:
-
-1. A Derby Server - running in node.js, and able to serve a ...
-2. A Derby Client - that runs in a web browser and connects back to the Server to ensure ...
-3. Synchonised Data - accross all connected clients and ...
-4. Persisisted Data - in the server side database.
+1. __A Derby Server__ - running in node.js, and able to serve a ...
+2. __A Derby Client__ - that runs in a web browser and connects back to the Server to ensure ...
+3. __Synchonised Data__ - accross all connected clients and ...
+4. __Persisisted Data__ - in the server side database.
 
 
 Derby achives this by combining a number of techniques and librbaries. They key ones are:
