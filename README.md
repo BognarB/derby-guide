@@ -73,7 +73,7 @@ npm install -g coffee
 Finally your ready for Derby. This will install the command line tool `derby` which is used to create Derby projects from a template. 
 
 ```bash
-npm install -g derbyjs
+npm install -g derby
 ```
 
 Part 2 - Run an Example
